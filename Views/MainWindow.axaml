@@ -10,7 +10,9 @@
         Width="900" Height="650"
         WindowStartupLocation="CenterScreen"
         Background="White"
-        Title="Ping-Pong">
+        Title="Ping-Pong"
+        TextOptions.TextRenderingMode="SubpixelAntialias"
+        RenderOptions.EdgeMode="Antialias">
 
     <Design.DataContext>
         <vm:MainWindowViewModel/>
@@ -23,7 +25,7 @@
     -->
     <TransitioningContentControl Content="{Binding CurrentPage}">
         <TransitioningContentControl.PageTransition>
-            <CrossFade Duration="0:0:0.35"/>
+            <CrossFade Duration="0:0:0.18"/>
         </TransitioningContentControl.PageTransition>
     </TransitioningContentControl>
 
