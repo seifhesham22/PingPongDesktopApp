@@ -1,0 +1,138 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        Motion follows Fluent: short distances (8-16px), decelerate on arrival,
+        accelerate on exit, no rotation or bounce.
+
+        Usage — add "enter" for the base animation and an optional delay step
+        to stagger a group:
+
+            <TextBlock Classes="enter"/>
+            <TextBox   Classes="enter d2"/>
+
+        TransformAnimator drives properties on a transform instance, so every
+        animated element needs one. The style below supplies it, which is why
+        views don't declare RenderTransform themselves.
+    -->
+    <Style Selector="Control.enter, Control.pulse, TextBlock.error">
+        <Setter Property="RenderTransform">
+            <TranslateTransform/>
+        </Setter>
+    </Style>
+
+    <!-- Fade up into place. Delay variants below only change when it starts. -->
+    <Style Selector="Control.enter">
+        <Style.Animations>
+            <Animation Duration="0:0:0.4" Easing="0.1,0.9,0.2,1.0" FillMode="Backward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Setter Property="TranslateTransform.Y" Value="10"/>
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="TranslateTransform.Y" Value="0"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Control.enter.d1">
+        <Style.Animations>
+            <Animation Duration="0:0:0.4" Delay="0:0:0.04" Easing="0.1,0.9,0.2,1.0" FillMode="Backward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Setter Property="TranslateTransform.Y" Value="10"/>
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="TranslateTransform.Y" Value="0"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Control.enter.d2">
+        <Style.Animations>
+            <Animation Duration="0:0:0.4" Delay="0:0:0.08" Easing="0.1,0.9,0.2,1.0" FillMode="Backward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Setter Property="TranslateTransform.Y" Value="10"/>
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="TranslateTransform.Y" Value="0"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Control.enter.d3">
+        <Style.Animations>
+            <Animation Duration="0:0:0.4" Delay="0:0:0.12" Easing="0.1,0.9,0.2,1.0" FillMode="Backward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Setter Property="TranslateTransform.Y" Value="10"/>
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="TranslateTransform.Y" Value="0"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <Style Selector="Control.enter.d4">
+        <Style.Animations>
+            <Animation Duration="0:0:0.4" Delay="0:0:0.16" Easing="0.1,0.9,0.2,1.0" FillMode="Backward">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Setter Property="TranslateTransform.Y" Value="10"/>
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="TranslateTransform.Y" Value="0"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <!-- Error text drops in when it becomes visible. -->
+    <Style Selector="TextBlock.error">
+        <Style.Animations>
+            <Animation Duration="0:0:0.25" Easing="0.1,0.9,0.2,1.0">
+                <KeyFrame Cue="0%">
+                    <Setter Property="Opacity" Value="0"/>
+                    <Setter Property="TranslateTransform.Y" Value="-6"/>
+                </KeyFrame>
+                <KeyFrame Cue="100%">
+                    <Setter Property="Opacity" Value="1"/>
+                    <Setter Property="TranslateTransform.Y" Value="0"/>
+                </KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+    <!--
+        Rejection shake. Added and removed from code-behind, since Avalonia only
+        runs a class animation on the transition into that class.
+        See ShakeBehavior.
+    -->
+    <Style Selector="Panel.shake, StackPanel.shake, Border.shake">
+        <Setter Property="RenderTransform">
+            <TranslateTransform/>
+        </Setter>
+        <Style.Animations>
+            <Animation Duration="0:0:0.4" Easing="LinearEasing">
+                <KeyFrame Cue="0%">   <Setter Property="TranslateTransform.X" Value="0"/></KeyFrame>
+                <KeyFrame Cue="15%">  <Setter Property="TranslateTransform.X" Value="-6"/></KeyFrame>
+                <KeyFrame Cue="30%">  <Setter Property="TranslateTransform.X" Value="6"/></KeyFrame>
+                <KeyFrame Cue="45%">  <Setter Property="TranslateTransform.X" Value="-4"/></KeyFrame>
+                <KeyFrame Cue="60%">  <Setter Property="TranslateTransform.X" Value="4"/></KeyFrame>
+                <KeyFrame Cue="80%">  <Setter Property="TranslateTransform.X" Value="-2"/></KeyFrame>
+                <KeyFrame Cue="100%"> <Setter Property="TranslateTransform.X" Value="0"/></KeyFrame>
+            </Animation>
+        </Style.Animations>
+    </Style>
+
+</Styles>

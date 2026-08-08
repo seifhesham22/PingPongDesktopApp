@@ -1,0 +1,118 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PingPongDesktopApp.ViewModels"
+             xmlns:conv="using:PingPongDesktopApp.Converters"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="650"
+             x:Class="PingPongDesktopApp.Views.RegisterView"
+             x:DataType="vm:RegisterViewModel">
+
+    <Design.DataContext>
+        <vm:RegisterViewModel/>
+    </Design.DataContext>
+
+    <Border Background="{DynamicResource Surface}">
+        <StackPanel Name="FormPanel"
+                    Width="264"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <TextBlock Classes="enter"
+                       Text="Ping-Pong"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       Foreground="{DynamicResource Accent}"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Classes="enter d1"
+                       Text="Sign Up"
+                       FontSize="17"
+                       FontWeight="Bold"
+                       Margin="0,6,0,20"
+                       HorizontalAlignment="Center"/>
+
+            <TextBox Classes="pill enter d2"
+                     PlaceholderText="Email"
+                     Text="{Binding Email}"/>
+
+            <Grid Classes="enter d3" Margin="0,12,0,0">
+                <TextBox Classes="pill"
+                         PlaceholderText="Password"
+                         Text="{Binding Password}"
+                         PasswordChar="●"
+                         RevealPassword="{Binding IsPasswordVisible}"/>
+
+                <Button Classes="link"
+                        Command="{Binding TogglePasswordVisibilityCommand}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,12,0"
+                        Foreground="{DynamicResource Muted}"
+                        Content="{Binding IsPasswordVisible, Converter={x:Static conv:PasswordVisibilityConverter.Instance}}"/>
+            </Grid>
+
+            <Grid Classes="enter d3" Margin="0,12,0,0">
+                <TextBox Classes="pill"
+                         PlaceholderText="Confirm Password"
+                         Text="{Binding ConfirmPassword}"
+                         PasswordChar="●"
+                         RevealPassword="{Binding IsPasswordVisible}"/>
+
+                <Button Classes="link"
+                        Command="{Binding TogglePasswordVisibilityCommand}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,12,0"
+                        Foreground="{DynamicResource Muted}"
+                        Content="{Binding IsPasswordVisible, Converter={x:Static conv:PasswordVisibilityConverter.Instance}}"/>
+            </Grid>
+
+            <TextBlock Classes="error"
+                       Text="{Binding ErrorMessage}"
+                       Margin="0,10,0,0"
+                       IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+            <Button Classes="primary enter d4"
+                    Command="{Binding SignUpCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="0,18,0,0">
+                <Panel>
+                    <TextBlock Text="Sign Up"
+                               IsVisible="{Binding !SignUpCommand.IsRunning}"/>
+                    <ProgressBar IsIndeterminate="True"
+                                 Width="80"
+                                 Height="4"
+                                 IsVisible="{Binding SignUpCommand.IsRunning}"/>
+                </Panel>
+            </Button>
+
+            <StackPanel Classes="enter d4"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,14,0,0"
+                        Spacing="2">
+                <TextBlock Text="You have an account?" FontSize="13" VerticalAlignment="Center"/>
+                <Button Classes="link" Content="Log in" Command="{Binding GoToLoginCommand}"/>
+            </StackPanel>
+
+            <Grid Classes="enter d4" Margin="0,16,0,0" ColumnDefinitions="*,Auto,*">
+                <Rectangle Grid.Column="0" Height="1" Fill="{DynamicResource Divider}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="Or sign up with" Margin="10,0"
+                           FontSize="12" Foreground="{DynamicResource Muted}"/>
+                <Rectangle Grid.Column="2" Height="1" Fill="{DynamicResource Divider}" VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- Placeholders: no social providers are wired up in the API yet -->
+            <StackPanel Classes="enter d4"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Spacing="12"
+                        Margin="0,14,0,0">
+                <Button Classes="social" Content="VK" IsEnabled="False" ToolTip.Tip="Not available yet"/>
+                <Button Classes="social" Content="G"  IsEnabled="False" ToolTip.Tip="Not available yet"/>
+                <Button Classes="social" Content="X"  IsEnabled="False" ToolTip.Tip="Not available yet"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

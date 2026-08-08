@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PingPongDesktopApp.ViewModels"
+             xmlns:controls="using:PingPongDesktopApp.Controls"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="650"
+             x:Class="PingPongDesktopApp.Views.SplashView"
+             x:DataType="vm:SplashViewModel">
+
+    <Design.DataContext>
+        <vm:SplashViewModel/>
+    </Design.DataContext>
+
+    <Border Background="{DynamicResource Surface}">
+        <Panel Name="Root">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                <TextBlock Classes="enter"
+                           Text="Ping-Pong"
+                           FontSize="38"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource Accent}"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Classes="enter d2"
+                           Text="Chat, together."
+                           FontSize="13"
+                           Foreground="{DynamicResource Muted}"
+                           HorizontalAlignment="Center"
+                           Margin="0,6,0,0"/>
+
+                <controls:LoadingDots Classes="enter d4" Margin="0,30,0,0"/>
+            </StackPanel>
+        </Panel>
+    </Border>
+</UserControl>

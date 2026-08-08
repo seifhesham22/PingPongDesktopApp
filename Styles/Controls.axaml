@@ -1,0 +1,117 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        Shared control styles. Applied by class, so any view can use them:
+            <TextBox Classes="pill" .../>
+            <Button Classes="primary" .../>
+    -->
+
+    <!-- Pill-shaped text input -->
+    <Style Selector="TextBox.pill">
+        <Setter Property="Height" Value="44"/>
+        <Setter Property="CornerRadius" Value="22"/>
+        <Setter Property="Padding" Value="18,0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource FieldBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="{DynamicResource Surface}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <BrushTransition Property="BorderBrush" Duration="0:0:0.25"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="TextBox.pill:focus">
+        <Setter Property="BorderBrush" Value="{DynamicResource Accent}"/>
+    </Style>
+    <Style Selector="TextBox.pill:pointerover /template/ Border#PART_BorderElement">
+        <Setter Property="BorderBrush" Value="{DynamicResource FieldBorderHover}"/>
+    </Style>
+
+    <!-- Filled call-to-action button -->
+    <Style Selector="Button.primary">
+        <Setter Property="Height" Value="44"/>
+        <Setter Property="Width" Value="160"/>
+        <Setter Property="CornerRadius" Value="22"/>
+        <Setter Property="Background" Value="{DynamicResource Accent}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Surface}"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="RenderTransform" Value="scale(1)"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="0.1,0.9,0.2,1.0"/>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.25"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.primary:pointerover">
+        <Setter Property="RenderTransform" Value="scale(1.02)"/>
+    </Style>
+    <Style Selector="Button.primary:pressed">
+        <Setter Property="RenderTransform" Value="scale(0.98)"/>
+    </Style>
+    <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+        <Setter Property="Background" Value="{DynamicResource AccentHover}"/>
+    </Style>
+    <Style Selector="Button.primary:disabled">
+        <Setter Property="Opacity" Value="0.45"/>
+    </Style>
+
+    <!-- Inline text link -->
+    <Style Selector="Button.link">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="2,0"/>
+        <Setter Property="Foreground" Value="{DynamicResource Accent}"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.link:pointerover">
+        <Setter Property="Opacity" Value="0.65"/>
+    </Style>
+
+    <!-- Circular icon button, used for the social providers -->
+    <Style Selector="Button.social">
+        <Setter Property="Width" Value="34"/>
+        <Setter Property="Height" Value="34"/>
+        <Setter Property="CornerRadius" Value="17"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource FieldBorder}"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{DynamicResource Muted}"/>
+        <Setter Property="RenderTransform" Value="scale(1)"/>
+        <Setter Property="Transitions">
+            <Transitions>
+                <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" Easing="0.1,0.9,0.2,1.0"/>
+            </Transitions>
+        </Setter>
+    </Style>
+    <Style Selector="Button.social:pointerover">
+        <Setter Property="RenderTransform" Value="scale(1.08)"/>
+    </Style>
+
+    <!-- Form-level error text -->
+    <Style Selector="TextBlock.error">
+        <Setter Property="Foreground" Value="{DynamicResource Danger}"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+    </Style>
+
+</Styles>

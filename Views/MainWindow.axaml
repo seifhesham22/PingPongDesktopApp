@@ -16,7 +16,15 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <!-- ViewLocator maps the current view model to its view -->
-    <ContentControl Content="{Binding CurrentPage}"/>
+    <!--
+        TransitioningContentControl keeps the outgoing view alive while the
+        incoming one fades in, so there's no empty frame between the two.
+        ViewLocator maps the current view model to its view.
+    -->
+    <TransitioningContentControl Content="{Binding CurrentPage}">
+        <TransitioningContentControl.PageTransition>
+            <CrossFade Duration="0:0:0.35"/>
+        </TransitioningContentControl.PageTransition>
+    </TransitioningContentControl>
 
 </Window>

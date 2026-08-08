@@ -1,4 +1,5 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using PingPongDesktopApp.Services;
@@ -36,6 +37,11 @@ namespace PingPongDesktopApp
                 {
                     DataContext = new MainWindowViewModel(auth),
                 };
+
+                // Closing the main window shuts the app down, rather than leaving
+                // the process alive holding the exe and any open connections.
+                desktop.ShutdownMode = ShutdownMode.OnMainWindowClose;
+                desktop.ShutdownRequested += (_, _) => http.Dispose();
             }
 
             base.OnFrameworkInitializationCompleted();

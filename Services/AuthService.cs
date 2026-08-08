@@ -1,5 +1,6 @@
 using PingPongDesktopApp.Models;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -57,6 +58,59 @@ namespace PingPongDesktopApp.Services
             {
                 return ApiResult<LoginResponse>.Failure("The request timed out. Try again.");
             }
+        }
+
+        public async Task<ApiResult<bool>> RegisterAsync(
+            string email, string password, CancellationToken cancellationToken = default)
+        {
+            try
+            {
+                var response = await _http.PostAsJsonAsync(
+                    "auth/register",
+                    new RegisterRequest(email, password),
+                    cancellationToken);
+
+                if (response.IsSuccessStatusCode)
+                    return ApiResult<bool>.Success(true);
+
+                return ApiResult<bool>.Failure(
+                    await ReadIdentityErrorAsync(response, cancellationToken));
+            }
+            catch (HttpRequestException)
+            {
+                return ApiResult<bool>.Failure("Can't reach the server. Check your connection.");
+            }
+            catch (TaskCanceledException)
+            {
+                return ApiResult<bool>.Failure("The request timed out. Try again.");
+            }
+        }
+
+        /// <summary>
+        /// Identity reports registration failures as a validation problem keyed by
+        /// error code. Surfaces the first message, since the form shows one line.
+        /// </summary>
+        private static async Task<string> ReadIdentityErrorAsync(
+            HttpResponseMessage response, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var problem = await response.Content.ReadFromJsonAsync<IdentityValidationProblem>(
+                    JsonOptions, cancellationToken);
+
+                var firstMessage = problem?.Errors?.Values
+                    .SelectMany(messages => messages)
+                    .FirstOrDefault();
+
+                if (!string.IsNullOrWhiteSpace(firstMessage))
+                    return firstMessage;
+            }
+            catch (Exception)
+            {
+                // Not the shape we expected — fall through to the default message.
+            }
+
+            return "Couldn't create the account. Check your details and try again.";
         }
 
         /// <summary>

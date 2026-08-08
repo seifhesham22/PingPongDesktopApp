@@ -1,0 +1,19 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Palette. Every view pulls its colours from here. -->
+    <SolidColorBrush x:Key="Accent">#2B7FFF</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentHover">#1D6FEF</SolidColorBrush>
+    <SolidColorBrush x:Key="Surface">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="FieldBorder">#D4D4D8</SolidColorBrush>
+    <SolidColorBrush x:Key="FieldBorderHover">#A1A1AA</SolidColorBrush>
+    <SolidColorBrush x:Key="Muted">#71717A</SolidColorBrush>
+    <SolidColorBrush x:Key="Divider">#E4E4E7</SolidColorBrush>
+    <SolidColorBrush x:Key="Danger">#DC2626</SolidColorBrush>
+
+    <!-- Fluent motion curves. Decelerate for arrivals, accelerate for exits. -->
+    <x:String x:Key="EaseDecelerate">0.1,0.9,0.2,1.0</x:String>
+    <x:String x:Key="EaseAccelerate">0.7,0.0,1.0,0.5</x:String>
+    <x:String x:Key="EaseStandard">0.4,0.0,0.2,1.0</x:String>
+
+</ResourceDictionary>

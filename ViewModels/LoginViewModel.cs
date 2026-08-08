@@ -27,6 +27,12 @@ namespace PingPongDesktopApp.ViewModels
         /// <summary>Raised once the user is signed in, so the shell can swap views.</summary>
         public event EventHandler? LoggedIn;
 
+        /// <summary>Raised on a failed attempt, so the view can shake the form.</summary>
+        public event EventHandler? LoginFailed;
+
+        /// <summary>Raised when the user chooses to create an account instead.</summary>
+        public event EventHandler? SignUpRequested;
+
         public LoginViewModel(AuthService auth) => _auth = auth;
 
         /// <summary>Parameterless overload for the XAML previewer only.</summary>
@@ -47,6 +53,7 @@ namespace PingPongDesktopApp.ViewModels
             if (!result.IsSuccess)
             {
                 ErrorMessage = result.ErrorMessage;
+                LoginFailed?.Invoke(this, EventArgs.Empty);
                 return;
             }
 
@@ -57,7 +64,7 @@ namespace PingPongDesktopApp.ViewModels
         private void TogglePasswordVisibility() => IsPasswordVisible = !IsPasswordVisible;
 
         [RelayCommand]
-        private void GoToSignUp() { /* wired up when the Sign Up view exists */ }
+        private void GoToSignUp() => SignUpRequested?.Invoke(this, EventArgs.Empty);
 
         [RelayCommand]
         private void ForgotPassword() { /* wired up when the reset view exists */ }
