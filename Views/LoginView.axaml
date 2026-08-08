@@ -1,0 +1,202 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:PingPongDesktopApp.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="650"
+             x:Class="PingPongDesktopApp.Views.LoginView"
+             x:DataType="vm:LoginViewModel">
+
+    <Design.DataContext>
+        <vm:LoginViewModel/>
+    </Design.DataContext>
+
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="Accent">#2B7FFF</SolidColorBrush>
+        <SolidColorBrush x:Key="FieldBorder">#D4D4D8</SolidColorBrush>
+        <SolidColorBrush x:Key="Muted">#71717A</SolidColorBrush>
+        <SolidColorBrush x:Key="Danger">#DC2626</SolidColorBrush>
+    </UserControl.Resources>
+
+    <UserControl.Styles>
+        <!-- Pill-shaped inputs, matching the Figma frames -->
+        <Style Selector="TextBox.pill">
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="CornerRadius" Value="22"/>
+            <Setter Property="Padding" Value="18,0"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="{StaticResource FieldBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="BorderBrush" Duration="0:0:0.18"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="TextBox.pill:focus">
+            <Setter Property="BorderBrush" Value="{StaticResource Accent}"/>
+        </Style>
+        <Style Selector="TextBox.pill:pointerover /template/ Border#PART_BorderElement">
+            <Setter Property="BorderBrush" Value="#A1A1AA"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Height" Value="44"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="CornerRadius" Value="22"/>
+            <Setter Property="Background" Value="{StaticResource Accent}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="RenderTransform" Value="scale(1)"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.14" Easing="CubicEaseOut"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.primary:pointerover">
+            <Setter Property="RenderTransform" Value="scale(1.03)"/>
+        </Style>
+        <Style Selector="Button.primary:pressed">
+            <Setter Property="RenderTransform" Value="scale(0.97)"/>
+        </Style>
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Background" Value="#1D6FEF"/>
+        </Style>
+        <Style Selector="Button.primary:disabled">
+            <Setter Property="Opacity" Value="0.45"/>
+        </Style>
+
+        <Style Selector="Button.link">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="2,0"/>
+            <Setter Property="Foreground" Value="{StaticResource Accent}"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Transitions">
+                <Transitions>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.15"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector="Button.link:pointerover">
+            <Setter Property="Opacity" Value="0.65"/>
+        </Style>
+
+        <Style Selector="Button.social">
+            <Setter Property="Width" Value="34"/>
+            <Setter Property="Height" Value="34"/>
+            <Setter Property="CornerRadius" Value="17"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="{StaticResource FieldBorder}"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource Muted}"/>
+        </Style>
+    </UserControl.Styles>
+
+    <Border Background="White">
+        <StackPanel Width="264"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Spacing="0">
+
+            <TextBlock Text="Ping-Pong"
+                       FontSize="30"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource Accent}"
+                       HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Log In"
+                       FontSize="17"
+                       FontWeight="Bold"
+                       Margin="0,6,0,20"
+                       HorizontalAlignment="Center"/>
+
+            <TextBox Classes="pill"
+                     Watermark="Email"
+                     Text="{Binding Email}"/>
+
+            <Grid Margin="0,12,0,0">
+                <TextBox Classes="pill"
+                         Watermark="Password"
+                         Text="{Binding Password}"
+                         PasswordChar="●"
+                         RevealPassword="{Binding IsPasswordVisible}"/>
+
+                <Button Classes="link"
+                        Command="{Binding TogglePasswordVisibilityCommand}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,12,0"
+                        Foreground="{StaticResource Muted}"
+                        Content="{Binding IsPasswordVisible, Converter={x:Static vm:EyeConverter.Instance}}"/>
+            </Grid>
+
+            <Button Classes="link"
+                    Content="Forgot Password?"
+                    Command="{Binding ForgotPasswordCommand}"
+                    HorizontalAlignment="Right"
+                    Margin="0,6,0,0"/>
+
+            <TextBlock Text="{Binding ErrorMessage}"
+                       Foreground="{StaticResource Danger}"
+                       FontSize="12"
+                       TextWrapping="Wrap"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       Margin="0,8,0,0"
+                       IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"/>
+
+            <Button Classes="primary"
+                    Command="{Binding LogInCommand}"
+                    HorizontalAlignment="Center"
+                    Margin="0,18,0,0">
+                <Panel>
+                    <TextBlock Text="Log In"
+                               IsVisible="{Binding !LogInCommand.IsRunning}"/>
+                    <ProgressBar IsIndeterminate="True"
+                                 Width="80"
+                                 Height="4"
+                                 IsVisible="{Binding LogInCommand.IsRunning}"/>
+                </Panel>
+            </Button>
+
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Margin="0,14,0,0"
+                        Spacing="2">
+                <TextBlock Text="Don't have an account?" FontSize="13" VerticalAlignment="Center"/>
+                <Button Classes="link" Content="Sign up" Command="{Binding GoToSignUpCommand}"/>
+            </StackPanel>
+
+            <Grid Margin="0,16,0,0" ColumnDefinitions="*,Auto,*">
+                <Rectangle Grid.Column="0" Height="1" Fill="{StaticResource FieldBorder}" VerticalAlignment="Center"/>
+                <TextBlock Grid.Column="1" Text="Or login with" Margin="10,0"
+                           FontSize="12" Foreground="{StaticResource Muted}"/>
+                <Rectangle Grid.Column="2" Height="1" Fill="{StaticResource FieldBorder}" VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- Placeholders: no social providers are wired up in the API yet -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        Spacing="12"
+                        Margin="0,14,0,0">
+                <Button Classes="social" Content="VK"  IsEnabled="False" ToolTip.Tip="Not available yet"/>
+                <Button Classes="social" Content="G"   IsEnabled="False" ToolTip.Tip="Not available yet"/>
+                <Button Classes="social" Content="X"   IsEnabled="False" ToolTip.Tip="Not available yet"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

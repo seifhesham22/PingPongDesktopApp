@@ -1,0 +1,16 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="PingPongDesktopApp.App"
+             xmlns:local="using:PingPongDesktopApp"
+             RequestedThemeVariant="Light">
+             <!-- Pinned to Light: the Figma designs are light-only, and following the
+                  system theme would put Fluent's dark palette behind them. -->
+
+    <Application.DataTemplates>
+        <local:ViewLocator/>
+    </Application.DataTemplates>
+  
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+</Application>
